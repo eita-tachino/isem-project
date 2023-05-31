@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url("https://fonts.googleapis.com/css2?family=M+PLUS+1p:wght@300&display=swap");
+
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
@@ -17,11 +19,107 @@
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  background-image: linear-gradient(0deg, transparent 31px, #333 32px),
+    linear-gradient(90deg, transparent 31px, #333 32px);
+  background-size: 32px 32px;
+  background-color: #100d0e;
+  border: 16px solid #231f20;
+  color: #f9f4da;
+  font-family: "M PLUS 1p", sans-serif;
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+/* body {
+  @apply flex min-h-screen flex-col bg-slate-300 font-mono text-gray-600 
+    selection:bg-slate-300 selection:bg-opacity-70 selection:text-slate-300;
+} */
+
+@layer components {
+  .hamburger-menu {
+    @apply self-end p-2 sm:hidden;
+  }
+  .hamburger-menu svg {
+    @apply h-6 w-6 scale-125 fill-indigo-500;
+  }
+  .menu-icon line {
+    @apply transition-opacity duration-75 ease-in-out;
+  }
+  .menu-icon .close {
+    opacity: 0;
+  }
+  .menu-icon.is-active .line {
+    @apply opacity-0;
+  }
+  .menu-icon.is-active .close {
+    @apply opacity-100;
+  }
+  .pagination-wrapper {
+    @apply mt-auto mb-8 flex justify-center;
+  }
+  .disabled {
+    @apply pointer-events-none select-none opacity-50 hover:text-slate-400 group-hover:fill-slate-400;
+  }
+  .disabled-svg {
+    @apply group-hover:!fill-slate-400;
+  }
+  .breadcrumb {
+    @apply mx-auto mt-8 mb-1 w-full max-w-3xl px-4;
+  }
+}
+.breadcrumb ul li {
+  @apply inline;
+}
+
+section,
+footer {
+  @apply mx-auto max-w-3xl px-4;
+}
+
+a {
+  @apply outline-2 outline-offset-1 outline-indigo-500
+    focus-visible:no-underline focus-visible:outline-dashed;
+}
+
+svg {
+  @apply inline-block h-6 w-6 fill-indigo-500 group-hover:fill-indigo-500;
+}
+svg.icon-tabler {
+  @apply inline-block h-6 w-6 scale-125 fill-transparent 
+    stroke-current stroke-2 opacity-90 group-hover:fill-transparent 
+    sm:scale-110;
+}
+
+nav {
+  @apply flex w-full flex-col items-center sm:ml-2 sm:flex-row sm:justify-end sm:space-x-4 sm:py-0;
+}
+nav ul {
+  @apply mt-4 grid w-44 grid-cols-2 grid-rows-4 gap-y-2 gap-x-2 sm:mt-0 sm:ml-0 sm:w-auto sm:gap-y-0 sm:gap-x-5;
+}
+nav ul li {
+  @apply col-span-2 flex items-center justify-center;
+}
+nav ul li a {
+  @apply w-full px-4 py-3 text-center font-medium hover:text-indigo-500 sm:my-0 sm:px-2 sm:py-1;
+}
+nav ul li:nth-child(4) a {
+  @apply w-auto;
+}
+nav ul li:nth-child(4),
+nav ul li:nth-child(5) {
+  @apply col-span-1;
+}
+nav a.active {
+  @apply underline decoration-wavy decoration-2 underline-offset-4;
+}
+nav a.active svg {
+  @apply fill-indigo-500;
+}
+
+nav button {
+  @apply p-1;
+}
+nav button svg {
+  @apply h-6 w-6 fill-indigo-500 hover:fill-indigo-500;
 }
