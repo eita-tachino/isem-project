@@ -45,14 +45,14 @@ export default function BlogHomeDemo({ posts }) {
           聴き給え！知識の仮想の広間に進みたまえ。そこでは勇敢なる学者たちが集い、数と文字の難解な領域を従順に制する。このデジタルの聖域にて、数学と英語の芸に堪えたる知識の英雄たちは、知恵を求める冒険に旅立つ。対話的な挑戦と高潔なる導きを通じて、彼らは方程式の謎を解き、言語の秘密を解き放つ。思考を研ぎ澄まし、理解を広げ、霊魂を照らし出すがよい、この高貴なる自習のオンラインの住処にて。学問の英雄たちの仲間入りをし、学術的な勝利と言語の巧妙さを求める道を切り開くがよい。
         </p>
         <p className="my-2 tracking-wider leading-6">
-          Read the blog posts or check{" "}
+          詳細については{" "}
           <LinkButton
             className="hover:text-orange-500 underline underline-offset-4 decoration-dashed"
             href="https://github.com/satnaing/astro-paper#readme"
           >
-            README
+            BLOG
           </LinkButton>{" "}
-          for more info.
+          をご覧あれ
         </p>
         {/* {
         // only display if at least one social link is enabled

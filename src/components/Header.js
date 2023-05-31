@@ -81,7 +81,7 @@ const Header = ({ activeNav }) => {
               </svg>
             </button>
             <ul id="menu-items" className="hidden sm:flex">
-              <li className="col-span-2 flex items-center justify-center">
+              <li className="flex items-center justify-center">
                 <Link
                   href="/blog"
                   className={
@@ -93,7 +93,7 @@ const Header = ({ activeNav }) => {
                   Blog
                 </Link>
               </li>
-              <li className="col-span-2 flex items-center justify-center">
+              <li className="flex items-center justify-center">
                 <Link
                   href="/posts"
                   className={
@@ -105,7 +105,7 @@ const Header = ({ activeNav }) => {
                   Posts
                 </Link>
               </li>
-              <li className="">
+              <li className="flex items-center justify-center">
                 <Link
                   href="/tags"
                   className={
@@ -117,10 +117,14 @@ const Header = ({ activeNav }) => {
                   Tags
                 </Link>
               </li>
-              <li className="">
+              <li className="flex items-center justify-center">
                 <Link
                   href="/about"
-                  className={activeNav === "about" ? "active" : ""}
+                  className={
+                    activeNav === "about"
+                      ? "underline decoration-wavy decoration-2 underline-offset-4 w-full px-4 py-3 text-center font-medium hover:text-skin-accent sm:my-0 sm:px-2 sm:py-1"
+                      : "w-full px-4 py-3 text-center font-medium hover:text-skin-accent sm:my-0 sm:px-2 sm:py-1"
+                  }
                 >
                   About
                 </Link>
