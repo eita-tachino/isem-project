@@ -25,7 +25,7 @@ export default function Home({ posts }) {
           alt=""
           fill
           style={{ objectFit: "cover", objectPosition: "center center" }}
-          className="opacity-10"
+          className="opacity-20 sm:opacity-10 object-cover block"
         />
         <div
           aria-hidden="true"
@@ -39,7 +39,7 @@ export default function Home({ posts }) {
             自宅でも最高の学習環境！オンライン自習室で学びを加速し、目標達成への道を切り拓こう
           </h2>
         </div>
-        <div className="pb-32 z-10">
+        <div className="pb-12 z-10 sm:pb-32">
           <div className="flex flex-col items-center justify-center">
             <Link
               className="flex items-center justify-center px-4 py-4 transition-all duration-200 ease-in-out dark:bg-transparent bg-gray-900 dark:text-white text-white rounded-md dark:hover:bg-[#F38BA3] font-medium group border"
