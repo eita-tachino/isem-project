@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import Hr from "./Hr";
@@ -6,6 +6,25 @@ import Hr from "./Hr";
 import { SITE, LOGO_IMAGE } from "../../config";
 
 const Header = ({ activeNav }) => {
+  const dropdownRef = useRef(null);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+  // ドロップダウンメニューが表示される領域（グループ）に対してのイベントハンドラ
+  const handleDropdownGroupMouseEnter = () => {
+    setIsDropdownOpen(true);
+  };
+
+  const handleDropdownGroupMouseLeave = () => {
+    setIsDropdownOpen(false);
+  };
+
+  // メニュー以外の領域に対してのイベントハンドラ
+  const handleOutsideMouseLeave = (e) => {
+    if (!dropdownRef.current?.contains(e.target)) {
+      setIsDropdownOpen(false);
+    }
+  };
+
   useEffect(() => {
     const menuBtn = document.querySelector(".hamburger-menu");
     const menuIcon = document.querySelector(".menu-icon");
@@ -23,9 +42,11 @@ const Header = ({ activeNav }) => {
     };
 
     menuBtn.addEventListener("click", toggleMenu);
+    document.addEventListener("mouseleave", handleOutsideMouseLeave);
 
     return () => {
       menuBtn.removeEventListener("click", toggleMenu);
+      document.removeEventListener("mouseleave", handleOutsideMouseLeave);
     };
   }, []);
   return (
@@ -81,8 +102,54 @@ const Header = ({ activeNav }) => {
               </svg>
             </button>
             <ul id="menu-items" className="hidden sm:flex">
-              <li className="flex items-center justify-center">
-                <Link
+              <li
+                className="flex items-center justify-center"
+                onMouseEnter={handleDropdownGroupMouseEnter}
+                onMouseLeave={handleDropdownGroupMouseLeave}
+              >
+                <div className="relative group">
+                  <button
+                    className={
+                      activeNav === "blog"
+                        ? "underline decoration-wavy decoration-2 underline-offset-4 w-full px-4 py-3 text-center font-medium hover:text-skin-accent sm:my-0 sm:px-2 sm:py-1"
+                        : "w-full px-4 py-3 text-center font-medium hover:text-skin-accent sm:my-0 sm:px-2 sm:py-1"
+                    }
+                    // onClick={() => setIsDropdownOpen((prevState) => !prevState)}
+                    onMouseOver={() => setIsDropdownOpen(true)}
+                  >
+                    Blog <span className="text-sm">▾</span>
+                  </button>
+                  <ul
+                    className={
+                      isDropdownOpen
+                        ? "absolute left-0 z-10 w-40 bg-[#231F20] mt-0 py-2 rounded-lg shadow-lg group-hover:block"
+                        : "hidden"
+                    }
+                  >
+                    <li>
+                      <Link href="/blog">
+                        <span className="block px-4 py-2 text-sm text-[#F38BA3] hover:bg-[#2D2929]">
+                          All Blogs
+                        </span>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link href="/posts">
+                        <span className="block px-4 py-2 text-sm text-[#F38BA3] hover:bg-[#2D2929]">
+                          Posts
+                        </span>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link href="/tags">
+                        <span className="block px-4 py-2 text-sm text-[#F38BA3] hover:bg-[#2D2929]">
+                          Tags
+                        </span>
+                      </Link>
+                    </li>
+                  </ul>
+                </div>
+                {/* <Link
                   href="/blog"
                   className={
                     activeNav === "blog"
@@ -91,31 +158,7 @@ const Header = ({ activeNav }) => {
                   }
                 >
                   Blog
-                </Link>
-              </li>
-              <li className="flex items-center justify-center">
-                <Link
-                  href="/posts"
-                  className={
-                    activeNav === "posts"
-                      ? "underline decoration-wavy decoration-2 underline-offset-4 w-full px-4 py-3 text-center font-medium hover:text-skin-accent sm:my-0 sm:px-2 sm:py-1"
-                      : "w-full px-4 py-3 text-center font-medium hover:text-skin-accent sm:my-0 sm:px-2 sm:py-1"
-                  }
-                >
-                  Posts
-                </Link>
-              </li>
-              <li className="flex items-center justify-center">
-                <Link
-                  href="/tags"
-                  className={
-                    activeNav === "tags"
-                      ? "underline decoration-wavy decoration-2 underline-offset-4 w-full px-4 py-3 text-center font-medium hover:text-skin-accent sm:my-0 sm:px-2 sm:py-1"
-                      : "w-full px-4 py-3 text-center font-medium hover:text-skin-accent sm:my-0 sm:px-2 sm:py-1"
-                  }
-                >
-                  Tags
-                </Link>
+                </Link> */}
               </li>
               <li className="flex items-center justify-center">
                 <Link
@@ -129,6 +172,7 @@ const Header = ({ activeNav }) => {
                   About
                 </Link>
               </li>
+
               <li>
                 {/* <LinkButton
                   href="/search"
