@@ -6,6 +6,10 @@ import Header from "./Header";
 import DateTime from "./DateTime";
 import Tag from "./Tag";
 
+import { ReactMarkdown } from "react-markdown/lib/react-markdown";
+import remarkMath from "remark-math";
+import rehypeKatex from "rehype-katex";
+import "katex/dist/katex.min.css";
 import styles from "./post.module.css";
 
 export const Text = ({ text }) => {
@@ -33,6 +37,19 @@ export const Text = ({ text }) => {
       </span>
     );
   });
+};
+
+const renderNestedList = (block) => {
+  const { type } = block;
+  const value = block[type];
+  if (!value) return null;
+
+  const isNumberedList = value.children[0].type === "numbered_list_item";
+
+  if (isNumberedList) {
+    return <ol>{value.children.map((block) => renderBlock(block))}</ol>;
+  }
+  return <ul>{value.children.map((block) => renderBlock(block))}</ul>;
 };
 
 const renderBlock = (block) => {
@@ -184,20 +201,21 @@ const renderBlock = (block) => {
     case "column": {
       return <div>{block.children.map((child) => renderBlock(child))}</div>;
     }
-    // case "equation": {
-    //   if (value.expression) {
-    //     const math = value.expression;
-    //     return (
-    //       <ReactMarkdown
-    //         remarkPlugins={[remarkMath]}
-    //         rehypePlugins={[rehypeKatex]}
-    //       >
-    //         {/* {math} */}
-    //         {`$$${math}$$`}
-    //       </ReactMarkdown>
-    //     );
-    //   }
-    // }
+    case "equation": {
+      if (value.expression) {
+        const math = value.expression;
+        return (
+          <ReactMarkdown
+            remarkPlugins={[remarkMath]}
+            rehypePlugins={[rehypeKatex]}
+            className="mt-8"
+          >
+            {/* {math} */}
+            {`$$${math}$$`}
+          </ReactMarkdown>
+        );
+      }
+    }
     default:
       return `❌ Unsupported block (${
         type === "unsupported" ? "unsupported by Notion API" : type

@@ -5,6 +5,9 @@ import { getSortedPosts } from "@/utils/getSortedPosts";
 import { getPageNumbers } from "@/utils/getPageNumbers";
 import { SITE } from "../../../config";
 
+import { v4 as uuidv4 } from "uuid";
+import { validate as uuidValidate } from "uuid";
+
 const PostSlug = ({
   paginatedPosts,
   currentPage,
@@ -80,10 +83,11 @@ export async function getStaticProps({ params }) {
   // });
 
   // slugがNotionのUUIDであるか判定する
-  const isUUID =
-    /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[0-9a-f]{4}-[0-9a-f]{12}$/.test(
-      slug
-    );
+  // const isUUID =
+  //   /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[0-9a-f]{4}-[0-9a-f]{12}$/.test(
+  //     slug
+  //   );
+  const isUUID = uuidValidate(slug);
   let page = null;
   let childBlocks = [];
   if (isUUID) {
