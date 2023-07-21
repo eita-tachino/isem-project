@@ -162,6 +162,18 @@ const Header = ({ activeNav }) => {
               </li>
               <li className="flex items-center justify-center">
                 <Link
+                  href="/pricing"
+                  className={
+                    activeNav === "price"
+                      ? "underline decoration-wavy decoration-2 underline-offset-4 w-full px-4 py-3 text-center font-medium hover:text-skin-accent sm:my-0 sm:px-2 sm:py-1"
+                      : "w-full px-4 py-3 text-center font-medium hover:text-skin-accent sm:my-0 sm:px-2 sm:py-1"
+                  }
+                >
+                  レッスン料金
+                </Link>
+              </li>
+              <li className="flex items-center justify-center">
+                <Link
                   href="/about"
                   className={
                     activeNav === "about"

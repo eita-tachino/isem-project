@@ -31,12 +31,19 @@ body {
   flex-direction: column;
 }
 
-/* body {
-  @apply flex min-h-screen flex-col bg-slate-300 font-mono text-gray-600 
-    selection:bg-slate-300 selection:bg-opacity-70 selection:text-slate-300;
-} */
-
 @layer components {
+  .heading-2 {
+    @apply text-[1.75rem] text-amber-400 mb-8 max-w-4xl px-4 text-center md:mb-10 leading-tight;
+  }
+  .heading-3 {
+    @apply text-[1.25rem] text-center;
+  }
+  .base-text {
+    @apply text-[1rem] leading-6 font-light;
+  }
+  .base-text-large {
+    @apply text-[1.1rem] leading-7 font-light;
+  }
   .hamburger-menu {
     @apply self-end p-2 sm:hidden;
   }
@@ -74,7 +81,7 @@ body {
 
 section,
 footer {
-  @apply mx-auto max-w-3xl px-4;
+  @apply mx-auto max-w-4xl px-4;
 }
 
 a {
